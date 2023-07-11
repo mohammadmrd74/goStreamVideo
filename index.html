@@ -1,0 +1,26 @@
+<script src="https://cdn.jsdelivr.net/npm/hls.js@latest"></script>
+<!-- Or if you want a more recent canary version -->
+<!-- <script src="https://cdn.jsdelivr.net/npm/hls.js@canary"></script> -->
+
+<video
+    id="video"
+    title="Advertisement"
+    style="background-color: rgb(0, 0, 0); position: absolute; width: 640px; height: 360px;"
+    autoplay="true"
+    muted="muted"></video>
+<script>
+  var video = document.getElementById('video');
+  if(Hls.isSupported()) {
+      var hls = new Hls();
+      hls.loadSource('http://localhost:8000/media/1/stream/');
+      hls.attachMedia(video);
+      video.addEventListener('loadedmetadata',function() {
+      video.play();
+    });
+ } else if (video.canPlayType('application/vnd.apple.mpegurl')) {
+    video.src = 'http://localhost:8000/media/1/stream/';
+    video.addEventListener('loadedmetadata',function() {
+      video.play();
+    });
+  }
+</script>
